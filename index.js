@@ -2,9 +2,10 @@
 //run npm i inquirer
 //run npm i jest
 
-const Manager = require('./lib/Manager');
-const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern');
+const Manager = require('./lib/Manager.js');
+const Engineer = require('./lib/Engineer.js');
+const Intern = require('./lib/Intern.js');
+const Employee = require('./lib/Employee.js');
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
@@ -12,7 +13,7 @@ const fs = require('fs');
 const DIST_DIR = path.resolve(__dirname, 'dist')
 const distPath = path.join(DIST_DIR, 'team.html')
 
-const render = require('./src/page-template.js')
+const generateHTML = require('./src/page-template.js')
 
 const teamMembers = [];
 const idArray = [];
@@ -40,16 +41,16 @@ const EmployeeQuestions = [
     }
 ];
 
-function Manager(){
+function Manager_prompt(){
     inquirer.prompt(EmployeeQuestions).then(function(data){
-        const Manager = new Manager(data.ManagerName, data.ManagerId, data.ManagerEmail, data.OfficeNumber);
-        teamMembers.push(Manager);
+        const manager = new Manager(data.ManagerName, data.ManagerId, data.ManagerEmail, data.OfficeNumber);
+        teamMembers.push(manager);
         idArray.push(data.ManagerId);
-        team();
+        AddEmployee();
     });
 };
 
-function team() {
+function AddEmployee() {
     inquirer.prompt([
         {
             type: "list",
@@ -58,7 +59,7 @@ function team() {
             choices: [
                 "Engineer",
                 "Intern",
-                "I don't want to add any more team members"
+                "I don't want to add any more Employees"
             ]
         }
     ]).then(function(data){
@@ -96,7 +97,7 @@ function engineer() {
         const engineer = new Engineer(data.EngineerName, data.EngineerId, data.EngineerEmail, data.EngineerGithub);
         teamMembers.push(engineer);
         idArray.push(data.engineerId);
-        team();
+        AddEmployee();
     });
 };
 
@@ -126,40 +127,14 @@ function intern() {
         const intern = new Intern(data.InternName, data.InternId, data.InternEmail, data.InternSchool);
         teamMembers.push(intern);
         idArray.push(data.internId);
-        team();
+        AddEmployee();
     });
 };
 
 function outputTeam() {
-    if (!fs.existsSync(DIST_DIR)) {
-        fs.mkdirSync(DIST_DIR)
-    }
-    fs.writeFileSync(distPath, render(teamMembers), "utf-8");
-}
-
-Manager();
-
-
-
-inquirer.prompt(menuQuestions)
-.then(choice => {console.log(choice)
-if (choice.choice === 'Engineer'){
-    inquirer.prompt(EngineerQuestions)
-    .then(dataDngineer => {
-        const engineer1 = new Engineer(dataEngineer.name, )//fill in the rest with the other things like email id ...
-        teamMembers.push(engineer1);
-        menu();
-    })
-}else if(choice.choice === 'Intern'){
-    inquirer.prompt(InternQuestions)
-    .then(dataIntern => {
-        const new_intern = new Intern(dataIntern.name, dataIntern.id,)//fill in the rest 
-        teamMembers.push(new_intern);
-        menu()
-    })
-}else{
     var template = generateHTML(teamMembers);
     fs.writeFile('index.html', template, (err) =>
-    err? console.log(err): console.log('response written to '))
+    err? console.log(err): console.log('response written to index.html'))
 }
-})
+
+Manager_prompt();
