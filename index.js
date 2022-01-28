@@ -10,9 +10,6 @@ const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
 
-const DIST_DIR = path.resolve(__dirname, 'dist')
-const distPath = path.join(DIST_DIR, 'team.html')
-
 const generateHTML = require('./src/page-template.js')
 
 const teamMembers = [];
@@ -133,7 +130,7 @@ function intern() {
 
 function outputTeam() {
     var template = generateHTML(teamMembers);
-    fs.writeFile('index.html', template, (err) =>
+    fs.writeFile('./dist/index.html', template, (err) =>
     err? console.log(err): console.log('response written to index.html'))
 }
 

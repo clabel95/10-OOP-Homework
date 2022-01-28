@@ -6,8 +6,8 @@ const populate_Employees = All_Employees => {
     //I am starting with the manager since there will only be one.
     const populate_Manager = Manager =>{
         return`
-        <div class="row">
-            <div class="col-sm-3">
+        <div>
+            <div>
                 <div class="card">
                     <div class="card-header" style = "background-color: rgb(59, 59, 238); color: white">
                         <h2 class="card-title">${Manager.getName()}</h2>
@@ -29,8 +29,8 @@ const populate_Employees = All_Employees => {
     //Next is the function to populate the engineer employee
     const populate_Engineer = Engineer =>{
         return `
-        <div class="row">
-            <div class="col-sm-3">
+        <div>
+            <div>
                 <div class="card employee-card">
                     <div class="card-header" style = "background-color: rgb(59, 59, 238); color: white">
                         <h2 class="card-title">${Engineer.getName()}</h2>
@@ -51,8 +51,8 @@ const populate_Employees = All_Employees => {
     //Next is the function to populate the Intern employee
     const populate_Intern = Intern => {
         return `
-        <div class="row">
-            <div class="col-sm-3">
+        <div>
+            <div>
                 <div class="card employee-card">
                     <div class="card-header" style = "background-color: rgb(59, 59, 238); color: white">
                         <h2 class="card-title">${Intern.getName()}</h2>
@@ -114,7 +114,7 @@ module.exports = All_Employees => {
 
         <div class = "container">
             <div class = "row">
-                <div class="col-12 justify-content-center d-flex">
+                <div class = "col-12 justify-content-center d-flex justify-content-between align-items-stretch">
                     ${populate_Employees(All_Employees)}
                 </div>
             </div>
