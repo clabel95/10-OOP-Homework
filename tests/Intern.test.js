@@ -7,7 +7,7 @@ describe('Intern', () => {
             expect(e.name).toEqual("john");
             expect(e.id).toEqual(1);
             expect(e.email).toEqual("john@john.com")
-            expect(e.School).toEqual("Acc")
+            expect(e.school).toEqual("ACC")
         });
         it("should be able to retrieve the values for name using getName()", () =>{
             const e = new Intern("john", 1, "john@john.com", "ACC");
